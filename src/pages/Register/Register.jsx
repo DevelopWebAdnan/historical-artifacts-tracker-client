@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import AuthContext from "../../context/AuthContext/AuthContext";
+import { Link } from "react-router-dom";
 
 const Register = () => {
 
@@ -77,6 +78,9 @@ const Register = () => {
                             <button className="btn btn-neutral mt-4">Register</button>
                         </fieldset>
                     </form>
+                    <p className="mt-4 ml-4">
+                        Already have an account? Please <Link to="/login">Login</Link>.
+                    </p>
                 </div>
                 {
                     errorMessage && <p className="text-red-600">{errorMessage}</p>
