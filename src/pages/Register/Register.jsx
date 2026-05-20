@@ -61,9 +61,9 @@ const Register = () => {
 
     return (
         <div className="hero bg-base-200 min-h-screen">
-            {/* <div className="hero-content"> */}
+            <div className="hero-content flex-col">
+                <h1 className="text-5xl font-bold">Register now!</h1>
             <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-                <h1 className="text-5xl font-bold ml-8 mt-4">Register now!</h1>
                 <div className="card-body">
                     <form onSubmit={handleRegister}>
                         <fieldset className="fieldset">
@@ -90,7 +90,7 @@ const Register = () => {
                 }
             </div>
         </div>
-        // </div>
+        </div>
     );
 };
 

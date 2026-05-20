@@ -6,7 +6,7 @@ const Footer = () => {
             <aside>
                 <img src={logo} alt="" />
                 <p>
-                    Historical Artifacts Tracker
+                    H A Tracker
                     <br />
                     Tracking reliable historical artifacts since 2026
                 </p>

@@ -9,12 +9,12 @@ const Navbar = () => {
 
     const handleSignOut = () => {
         signOutUser()
-        .then(() => {
-            console.log('Sign out is successful.');
-        })
-        .catch(() => {
-            console.log("Sign out is unsuccessful. Please do not leave me alone.");
-        })
+            .then(() => {
+                console.log('Sign out is successful.');
+            })
+            .catch(() => {
+                console.log("Sign out is unsuccessful. Please do not leave me alone.");
+            })
     }
     const links = <>
         <li><NavLink to="/">Home</NavLink></li>
@@ -36,7 +36,7 @@ const Navbar = () => {
                 </div>
                 <a className="btn btn-ghost text-xl">
                     <img className="w-12" src={logo} alt="" />
-                    <h3 className="text-3xl">Historical Artifacts Tracker</h3>
+                    <h3 className="text-xl md:text-2xl lg:text-3xl">H A Tracker</h3>
                 </a>
             </div>
             <div className="navbar-center hidden lg:flex">
@@ -45,23 +45,50 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                    {
-                        user ? <div title={user?.displayName}>
-                            <img src={user?.photoURL} alt="User photo" />
-                            </div> 
-                            : 
-                            <img src="" alt="Default photo" />
-                    }
-                
+                {
+                    user ?
+                        // <div title={user?.displayName}>
+                        // <img src={user?.photoURL} alt="User photo" />
+                        // </div> 
+                        <div className="dropdown dropdown-end">
+                            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                <div className="w-10 rounded-full">
+                                    <img
+                                        alt="User photo"
+                                        src={user?.photoURL} />
+                                </div>
+                            </div>
+                            <ul
+                                tabIndex="-1"
+                                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                                <li>
+                                    <a className="justify-between">
+                                        Profile
+                                        <span className="badge">New</span>
+                                    </a>
+                                </li>
+                                <li><a>Settings</a></li>
+                                <li><a>Logout</a></li>
+                            </ul>
+                        </div>
+                        :
+                        // <img src="" alt="Default photo" />
+                        <div className="w-10 rounded-full">
+                            <img
+                                alt="Tailwind CSS Navbar component"
+                                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                        </div>
+                }
+
                 {
                     user ? <>
-                        <button onClick={handleSignOut} className="btn">Sign out</button>
+                        <button onClick={handleSignOut} className="btn ml-2">Sign out</button>
                     </>
                         :
                         <>
                             {/* <Link to="/register">Register</Link> */}
                             <Link to="/login">
-                                <button className="btn">Sign In</button>
+                                <button className="btn ml-2">Sign In</button>
                             </Link>
                         </>
                 }
