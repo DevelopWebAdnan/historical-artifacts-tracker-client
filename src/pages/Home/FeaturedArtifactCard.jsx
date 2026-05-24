@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom";
 
 
 const FeaturedArtifactCard = ({ artifact }) => {
 
-    const { artifact_image, artifact_name, historical_context, like_count } = artifact;
+    const { _id, artifact_image, artifact_name, historical_context, like_count } = artifact;
 
     return (
         <div className="card bg-base-100 shadow-sm">
@@ -17,7 +18,9 @@ const FeaturedArtifactCard = ({ artifact }) => {
                 <div className="badge badge-secondary">{like_count}</div>
                 <p>{historical_context}</p>
                 <div className="card-actions justify-end">
-                    <button className="btn btn-primary">View Details</button>
+                    <Link to={`/historicalArtifacts/${_id}`}>
+                        <button className="btn btn-primary">View Details</button>
+                    </Link>
                 </div>
             </div>
         </div>

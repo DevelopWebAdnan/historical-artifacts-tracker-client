@@ -3,6 +3,7 @@ import MainLayout from "../layout/MainLayout";
 import Home from "../pages/Home/Home";
 import Register from "../pages/Register/Register";
 import Login from "../pages/Login/Login";
+import ArtifactDetails from "../pages/ArtifactDetails/ArtifactDetails";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,11 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>
+      },
+      {
+        path: "/historicalArtifacts/:id",
+        element: <ArtifactDetails></ArtifactDetails>,
+        loader: ({params}) => fetch(`http://localhost:5000/historicalArtifacts/${params.id}`)
       },
       {
         path: "register",
