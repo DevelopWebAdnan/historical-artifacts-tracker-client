@@ -4,6 +4,7 @@ import Home from "../pages/Home/Home";
 import Register from "../pages/Register/Register";
 import Login from "../pages/Login/Login";
 import ArtifactDetails from "../pages/ArtifactDetails/ArtifactDetails";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/historicalArtifacts/:id",
-        element: <ArtifactDetails></ArtifactDetails>,
+        element: <PrivateRoute><ArtifactDetails></ArtifactDetails></PrivateRoute>,
         loader: ({params}) => fetch(`http://localhost:5000/historicalArtifacts/${params.id}`)
       },
       {

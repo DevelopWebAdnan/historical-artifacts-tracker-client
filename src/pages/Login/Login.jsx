@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import AuthContext from "../../context/AuthContext/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import SocialLogin from "./SocialLogin";
 
 const Login = () => {
@@ -8,6 +8,10 @@ const Login = () => {
     const [success, setSuccess] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const { signInUser } = useContext(AuthContext);
+    const location = useLocation();
+    console.log('in Login page', location);
+    const from = location.state || '/';
+    const navigate = useNavigate();
 
     const handleSignIn = e => {
         e.preventDefault();
@@ -26,6 +30,7 @@ const Login = () => {
             .then(result => {
                 console.log('Sign in', result.user)
                 setSuccess(true);
+                navigate(from);
             })
             .catch(error => {
                 setErrorMessage(error.message)
