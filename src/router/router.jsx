@@ -5,6 +5,7 @@ import Register from "../pages/Register/Register";
 import Login from "../pages/Login/Login";
 import ArtifactDetails from "../pages/ArtifactDetails/ArtifactDetails";
 import PrivateRoute from "./PrivateRoute";
+import AddArtifacts from "../pages/AddArtifacts/AddArtifacts";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
         path: "/historicalArtifacts/:id",
         element: <PrivateRoute><ArtifactDetails></ArtifactDetails></PrivateRoute>,
         loader: ({params}) => fetch(`http://localhost:5000/historicalArtifacts/${params.id}`)
+      },
+      {
+        path: "/addArtifact",
+        element: <PrivateRoute><AddArtifacts></AddArtifacts></PrivateRoute>
       },
       {
         path: "register",
