@@ -69,7 +69,7 @@ const Navbar = () => {
                                         <span className="badge">New</span>
                                     </a>
                                 </li>
-                                <li><a>Settings</a></li>
+                                <li><NavLink to="/myArtifacts">My Artifacts</NavLink></li>
                                 <li><a>Logout</a></li>
                             </ul>
                         </div>

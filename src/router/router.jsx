@@ -6,6 +6,7 @@ import Login from "../pages/Login/Login";
 import ArtifactDetails from "../pages/ArtifactDetails/ArtifactDetails";
 import PrivateRoute from "./PrivateRoute";
 import AddArtifacts from "../pages/AddArtifacts/AddArtifacts";
+import MyArtifacts from "../pages/MyArtifacts/MyArtifacts";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "/addArtifact",
         element: <PrivateRoute><AddArtifacts></AddArtifacts></PrivateRoute>
+      },
+      {
+        path: "/myArtifacts",
+        element: <PrivateRoute><MyArtifacts></MyArtifacts></PrivateRoute>
       },
       {
         path: "register",
