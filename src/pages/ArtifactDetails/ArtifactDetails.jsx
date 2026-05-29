@@ -29,7 +29,7 @@ const ArtifactDetails = () => {
                     Swal.fire({
                         position: "top-end",
                         icon: "success",
-                        title: "Artifact has been liked",
+                        title: "You like this artifact",
                         showConfirmButton: false,
                         timer: 1500
                     });

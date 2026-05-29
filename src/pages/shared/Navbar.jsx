@@ -70,7 +70,7 @@ const Navbar = () => {
                                     </a>
                                 </li>
                                 <li><NavLink to="/myArtifacts">My Artifacts</NavLink></li>
-                                <li><a>Logout</a></li>
+                                <li><NavLink to="/likedArtifacts">Liked Artifacts</NavLink></li>
                             </ul>
                         </div>
                         :
