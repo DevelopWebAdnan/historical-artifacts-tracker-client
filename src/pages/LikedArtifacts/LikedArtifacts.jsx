@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
+import axios from "axios";
 
 const LikedArtifacts = () => {
 
@@ -7,9 +8,14 @@ const LikedArtifacts = () => {
     const [artifacts, setArtifacts] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/liked-historical-artifact?email=${user.email}`)
-            .then(res => res.json())
-            .then(data => setArtifacts(data))
+
+        // fetch(`http://localhost:5000/liked-historical-artifact?email=${user.email}`)
+        //     .then(res => res.json())
+        //     .then(data => setArtifacts(data))
+
+        axios.get(`http://localhost:5000/liked-historical-artifact?email=${user.email}`, { withCredentials: true })
+            .then(res => setArtifacts(res.data))
+
     }, [user.email])
 
     return (
@@ -30,11 +36,11 @@ const LikedArtifacts = () => {
                         {/* row 1 */}
                         {
                             artifacts.map((artifact, index) => <tr key={index}>
-                            <th>{index + 1}</th>
-                            <td>{artifact.artifact_name}</td>
-                            <td>{artifact.artifact_type}</td>
-                            <td>{artifact.like_count}</td>
-                        </tr>)
+                                <th>{index + 1}</th>
+                                <td>{artifact.artifact_name}</td>
+                                <td>{artifact.artifact_type}</td>
+                                <td>{artifact.like_count}</td>
+                            </tr>)
                         }
                     </tbody>
                 </table>

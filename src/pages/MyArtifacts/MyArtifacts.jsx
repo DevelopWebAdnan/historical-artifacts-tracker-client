@@ -1,16 +1,21 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
+import axios from "axios";
 
 const MyArtifacts = () => {
     const { user } = useAuth();
     const [artifacts, setArtifacts] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/historicalArtifacts?email=${user.email}`)
-            .then(res => res.json())
-            .then(data => {
-                setArtifacts(data)
-            })
+        // fetch(`http://localhost:5000/historicalArtifacts?email=${user.email}`)
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         setArtifacts(data)
+        //     })
+
+        axios.get(`http://localhost:5000/historicalArtifacts?email=${user.email}`, { withCredentials: true })
+            .then(res => setArtifacts(res.data))
+
     }, [user.email])
     return (
         <div>
@@ -32,7 +37,7 @@ const MyArtifacts = () => {
                     <tbody>
 
                         {
-                            artifacts.map((artifact) => <tr>
+                            artifacts.map((artifact) => <tr key={artifact._id}>
                                 {/* <th>{index + 1}</th> */}
                                 <td>
                                     <div className="flex items-center gap-3">
@@ -62,17 +67,6 @@ const MyArtifacts = () => {
                             </tr>)
                         }
                     </tbody>
-
-                    <tfoot>
-                        <tr>
-                            {/* <th></th> */}
-                            <th>Artifact Name</th>
-                            <th>Discovered At, By</th>
-                            <th>Created At</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </tfoot>
                 </table>
             </div>
         </div>

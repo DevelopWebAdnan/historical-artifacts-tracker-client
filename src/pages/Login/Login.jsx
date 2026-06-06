@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import AuthContext from "../../context/AuthContext/AuthContext";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import SocialLogin from "./SocialLogin";
+import axios from "axios";
 
 const Login = () => {
 
@@ -28,9 +29,15 @@ const Login = () => {
 
         signInUser(email, password)
             .then(result => {
-                console.log('Sign in', result.user)
+                console.log('Sign in', result.user.email)
+                const user = { email: result.user.email };
                 setSuccess(true);
-                navigate(from);
+
+                axios.post("http://localhost:5000/jwt", user, { withCredentials: true })
+                    .then(res => {
+                        console.log(res.data)
+                    })
+                // navigate(from);
             })
             .catch(error => {
                 setErrorMessage(error.message)
@@ -57,7 +64,7 @@ const Login = () => {
                         <p className="ml-4 mt-4">
                             New to this website? Please <Link to="/register">Register</Link>
                         </p>
-                    <SocialLogin></SocialLogin>
+                        <SocialLogin></SocialLogin>
                     </div>
                     {
                         errorMessage && <p className="text-red-600">{errorMessage}</p>
