@@ -7,9 +7,9 @@ const FeaturedArtifactCard = ({ artifact }) => {
 
     return (
         <div className="card bg-base-100 shadow-sm">
-            <figure>
+            <figure className="h-60">
                 <img
-                    className="w-60 h-60"
+                    className="h-full object-cover"
                     src={artifact_image}
                     alt="artifact image" />
             </figure>

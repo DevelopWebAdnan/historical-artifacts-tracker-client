@@ -8,12 +8,14 @@ import PrivateRoute from "./PrivateRoute";
 import AddArtifacts from "../pages/AddArtifacts/AddArtifacts";
 import MyArtifacts from "../pages/MyArtifacts/MyArtifacts";
 import LikedArtifacts from "../pages/LikedArtifacts/LikedArtifacts";
+import axios from "axios";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
-    errorElement: <h2>Route not found</h2>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
@@ -22,7 +24,11 @@ const router = createBrowserRouter([
       {
         path: "/historicalArtifacts/:id",
         element: <PrivateRoute><ArtifactDetails></ArtifactDetails></PrivateRoute>,
-        loader: ({params}) => fetch(`http://localhost:5000/historicalArtifacts/${params.id}`)
+        // loader: ({params}) => fetch(`http://localhost:5000/historicalArtifacts/${params.id}`)
+        loader: ({ params }) => axios.get(`http://localhost:5000/historicalArtifacts/${params.id}`, { withCredentials: true })
+        // .then((response) => {
+        //   console.log(response.data);
+        // })
       },
       {
         path: "/addArtifact",

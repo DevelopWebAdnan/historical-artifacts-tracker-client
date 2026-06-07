@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import AuthContext from "../../context/AuthContext/AuthContext";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 
 const AddArtifacts = () => {
@@ -14,16 +15,19 @@ const AddArtifacts = () => {
         const newArtifact = Object.fromEntries(formData.entries());
         console.log(newArtifact);
 
-        fetch('http://localhost:5000/historicalArtifacts', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(newArtifact)
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.insertedId) {
+        // fetch('http://localhost:5000/historicalArtifacts', {
+        //     method: 'POST',
+        //     headers: {
+        //         'content-type': 'application/json'
+        //     },
+        //     body: JSON.stringify(newArtifact)
+        // })
+        //     .then(res => res.json())
+        //     .then(data => {
+
+        axios.post('http://localhost:5000/historicalArtifacts', newArtifact, { withCredentials: true })
+            .then(res => {
+                if (res.data.insertedId) {
                     Swal.fire({
                         position: "top-end",
                         icon: "success",
@@ -33,6 +37,7 @@ const AddArtifacts = () => {
                     });
                 }
             })
+        // })
     }
     return (
         <div>

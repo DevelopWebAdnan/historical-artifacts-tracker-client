@@ -3,7 +3,9 @@ import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 
 const ArtifactDetails = () => {
-    const { _id, artifact_name, like_count, artifact_image, artifact_type, historical_context, created_at, discovered_at, discovered_by, present_location } = useLoaderData();
+    const { data } = useLoaderData();
+    // console.log(data);
+    const { _id, artifact_name, like_count, artifact_image, artifact_type, historical_context, created_at, discovered_at, discovered_by, present_location } = data;
 
     const { user } = useAuth();
 
@@ -25,6 +27,9 @@ const ArtifactDetails = () => {
         })
             .then(res => res.json())
             .then(data => {
+
+        // axios.post('http://localhost:5000/liked-historical-artifacts', newLikedArtifact, { withCredentials: true })
+        //     .then(res => {
                 if (data.insertedId) {
                     Swal.fire({
                         position: "top-end",
@@ -34,7 +39,8 @@ const ArtifactDetails = () => {
                         timer: 1500
                     });
                 }
-            })
+            // })
+        })
     }
 
     return (
@@ -43,7 +49,7 @@ const ArtifactDetails = () => {
                 <div className="max-w-md">
                     <h1 className="text-5xl font-bold">{artifact_name}</h1>
                     {/* <div className="badge badge-secondary my-6">{like_count}</div> */}
-                    <div className="stats shadow">
+                    <div className="stats shadow my-5">
                         <div className="stat">
                             <div className="stat-figure text-primary">
                                 <svg
