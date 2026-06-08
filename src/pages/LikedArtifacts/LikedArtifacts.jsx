@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-import axios from "axios";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const LikedArtifacts = () => {
 
     const { user } = useAuth();
     const [artifacts, setArtifacts] = useState([]);
+    const axiosSecure = useAxiosSecure();
 
     useEffect(() => {
 
@@ -13,10 +14,11 @@ const LikedArtifacts = () => {
         //     .then(res => res.json())
         //     .then(data => setArtifacts(data))
 
-        axios.get(`http://localhost:5000/liked-historical-artifact?email=${user.email}`, { withCredentials: true })
+        // axios.get(`http://localhost:5000/liked-historical-artifact?email=${user.email}`, { withCredentials: true })
+        axiosSecure.get(`/liked-historical-artifact?email=${user.email}`)
             .then(res => setArtifacts(res.data))
 
-    }, [user.email])
+    }, [axiosSecure, user.email])
 
     return (
         <div>

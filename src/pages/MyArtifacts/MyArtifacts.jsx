@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-import axios from "axios";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const MyArtifacts = () => {
     const { user } = useAuth();
     const [artifacts, setArtifacts] = useState([]);
+    const axiosSecure = useAxiosSecure();
 
     useEffect(() => {
         // fetch(`http://localhost:5000/historicalArtifacts?email=${user.email}`)
@@ -13,10 +14,12 @@ const MyArtifacts = () => {
         //         setArtifacts(data)
         //     })
 
-        axios.get(`http://localhost:5000/historicalArtifacts?email=${user.email}`, { withCredentials: true })
-            .then(res => setArtifacts(res.data))
+        // axios.get(`http://localhost:5000/historicalArtifacts?email=${user.email}`, { withCredentials: true })
+        //     .then(res => setArtifacts(res.data))
 
-    }, [user.email])
+        axiosSecure.get(`/historicalArtifacts?email=${user.email}`)
+            .then(res => setArtifacts(res.data))
+    }, [axiosSecure, user.email])
     return (
         <div>
             <h2 className="text-3xl">My Artifacts: {artifacts.length}</h2>

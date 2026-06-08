@@ -1,12 +1,13 @@
 import { useContext } from "react";
 import AuthContext from "../../context/AuthContext/AuthContext";
 import Swal from "sweetalert2";
-import axios from "axios";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 
 const AddArtifacts = () => {
 
     const { user } = useContext(AuthContext);
+    const axiosSecure = useAxiosSecure();
 
     const handleAddArtifact = e => {
         e.preventDefault();
@@ -25,7 +26,9 @@ const AddArtifacts = () => {
         //     .then(res => res.json())
         //     .then(data => {
 
-        axios.post('http://localhost:5000/historicalArtifacts', newArtifact, { withCredentials: true })
+        // axios.post('http://localhost:5000/historicalArtifacts', newArtifact, { withCredentials: true })
+
+        axiosSecure.post('/historicalArtifacts', newArtifact)
             .then(res => {
                 if (res.data.insertedId) {
                     Swal.fire({

@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import AuthContext from "../../context/AuthContext/AuthContext";
-import axios from "axios";
 
 const SocialLogin = () => {
 
@@ -9,13 +8,13 @@ const SocialLogin = () => {
     const handleGoogleSignIn = () => {
         signInWithGoogle()
             .then(result => {
-                console.log('Social login', result.user.email);
-                const user = { email: result.user.email };
+                console.log('Social login', result.user);
+                // const user = { email: result.user.email };
 
-                axios.post("http://localhost:5000/jwt", user, { withCredentials: true })
-                    .then(res => {
-                        console.log(res.data)
-                    })
+                // axios.post("http://localhost:5000/jwt", user, { withCredentials: true })
+                //     .then(res => {
+                //         console.log(res.data)
+                //     })
             })
             .catch(error => {
                 console.log(error.message);
