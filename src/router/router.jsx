@@ -24,8 +24,8 @@ const router = createBrowserRouter([
       {
         path: "/historicalArtifacts/:id",
         element: <PrivateRoute><ArtifactDetails></ArtifactDetails></PrivateRoute>,
-        // loader: ({params}) => fetch(`http://localhost:5000/historicalArtifacts/${params.id}`)
-        loader: ({ params }) => axios.get(`http://localhost:5000/historicalArtifacts/${params.id}`, { withCredentials: true })
+        // loader: ({params}) => fetch(`https://historical-artifacts-tracker-server-alpha.vercel.app/historicalArtifacts/${params.id}`)
+        loader: ({ params }) => axios.get(`https://historical-artifacts-tracker-server-alpha.vercel.app/historicalArtifacts/${params.id}`, { withCredentials: true })
         // .then((response) => {
         //   console.log(response.data);
         // })

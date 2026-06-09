@@ -10,11 +10,11 @@ const LikedArtifacts = () => {
 
     useEffect(() => {
 
-        // fetch(`http://localhost:5000/liked-historical-artifact?email=${user.email}`)
+        // fetch(`https://historical-artifacts-tracker-server-alpha.vercel.app/liked-historical-artifact?email=${user.email}`)
         //     .then(res => res.json())
         //     .then(data => setArtifacts(data))
 
-        // axios.get(`http://localhost:5000/liked-historical-artifact?email=${user.email}`, { withCredentials: true })
+        // axios.get(`https://historical-artifacts-tracker-server-alpha.vercel.app/liked-historical-artifact?email=${user.email}`, { withCredentials: true })
         axiosSecure.get(`/liked-historical-artifact?email=${user.email}`)
             .then(res => setArtifacts(res.data))
 

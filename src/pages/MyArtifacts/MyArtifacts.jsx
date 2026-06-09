@@ -8,13 +8,13 @@ const MyArtifacts = () => {
     const axiosSecure = useAxiosSecure();
 
     useEffect(() => {
-        // fetch(`http://localhost:5000/historicalArtifacts?email=${user.email}`)
+        // fetch(`https://historical-artifacts-tracker-server-alpha.vercel.app/historicalArtifacts?email=${user.email}`)
         //     .then(res => res.json())
         //     .then(data => {
         //         setArtifacts(data)
         //     })
 
-        // axios.get(`http://localhost:5000/historicalArtifacts?email=${user.email}`, { withCredentials: true })
+        // axios.get(`https://historical-artifacts-tracker-server-alpha.vercel.app/historicalArtifacts?email=${user.email}`, { withCredentials: true })
         //     .then(res => setArtifacts(res.data))
 
         axiosSecure.get(`/historicalArtifacts?email=${user.email}`)

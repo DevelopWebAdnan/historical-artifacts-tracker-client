@@ -18,7 +18,7 @@ const ArtifactDetails = () => {
             liked_by: user?.email
         }
 
-        fetch('http://localhost:5000/liked-historical-artifacts', {
+        fetch('https://historical-artifacts-tracker-server-alpha.vercel.app/liked-historical-artifacts', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -28,7 +28,7 @@ const ArtifactDetails = () => {
             .then(res => res.json())
             .then(data => {
 
-        // axios.post('http://localhost:5000/liked-historical-artifacts', newLikedArtifact, { withCredentials: true })
+        // axios.post('https://historical-artifacts-tracker-server-alpha.vercel.app/liked-historical-artifacts', newLikedArtifact, { withCredentials: true })
         //     .then(res => {
                 if (data.insertedId) {
                     Swal.fire({

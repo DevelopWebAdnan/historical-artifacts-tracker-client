@@ -12,11 +12,12 @@ const AddArtifacts = () => {
     const handleAddArtifact = e => {
         e.preventDefault();
         const formData = new FormData(e.target);
-        // console.log(formData.entries());
+        // console.log(formData, formData.entries());
         const newArtifact = Object.fromEntries(formData.entries());
+        newArtifact.like_count = 0;
         console.log(newArtifact);
 
-        // fetch('http://localhost:5000/historicalArtifacts', {
+        // fetch('https://historical-artifacts-tracker-server-alpha.vercel.app/historicalArtifacts', {
         //     method: 'POST',
         //     headers: {
         //         'content-type': 'application/json'
@@ -26,7 +27,7 @@ const AddArtifacts = () => {
         //     .then(res => res.json())
         //     .then(data => {
 
-        // axios.post('http://localhost:5000/historicalArtifacts', newArtifact, { withCredentials: true })
+        // axios.post('https://historical-artifacts-tracker-server-alpha.vercel.app/historicalArtifacts', newArtifact, { withCredentials: true })
 
         axiosSecure.post('/historicalArtifacts', newArtifact)
             .then(res => {
