@@ -69,7 +69,7 @@ const Navbar = () => {
                                         <span className="badge">New</span>
                                     </a>
                                 </li>
-                                <li><NavLink to="/myArtifacts">My Artifacts</NavLink></li>
+                                <li><NavLink to={`/myArtifacts/${user?.email}`}>My Artifacts</NavLink></li>
                                 <li><NavLink to="/likedArtifacts">Liked Artifacts</NavLink></li>
                             </ul>
                         </div>

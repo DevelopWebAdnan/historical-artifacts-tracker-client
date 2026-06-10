@@ -32,7 +32,7 @@ const Login = () => {
                 // const user = { email: result.user.email };
                 setSuccess(true);
 
-                // axios.post("https://historical-artifacts-tracker-server-alpha.vercel.app/jwt", user, { withCredentials: true })
+                // axios.post("http://localhost:5000/jwt", user, { withCredentials: true })
                 //     .then(res => {
                 //         console.log(res.data)
                 //     })

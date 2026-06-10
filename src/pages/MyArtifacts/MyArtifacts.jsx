@@ -7,17 +7,39 @@ const MyArtifacts = () => {
     const [artifacts, setArtifacts] = useState([]);
     const axiosSecure = useAxiosSecure();
 
+    const handleDelete = id => {
+        console.log('delete it', id);
+        fetch(`http://localhost:5000/myHistoricalArtifacts/${user?.email}`, {
+            method: 'DELETE',
+            // headers: {
+            //     'content-type': 'application/json'
+            // },
+            // body: JSON.stringify()
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+        })
+    }
+
+    // const data = useLoaderData();
+    // console.log(data);
+    // const { _id, artifact_name, like_count, artifact_image, artifact_type, historical_context, created_at, discovered_at, discovered_by, present_location } = data;
+
+
     useEffect(() => {
-        // fetch(`https://historical-artifacts-tracker-server-alpha.vercel.app/historicalArtifacts?email=${user.email}`)
+        // fetch(`http://localhost:5000/historicalArtifacts/${user.email}`)
+        // fetch(`http://localhost:5000/myHistoricalArtifacts/${user?.email}`)
         //     .then(res => res.json())
         //     .then(data => {
         //         setArtifacts(data)
         //     })
 
-        // axios.get(`https://historical-artifacts-tracker-server-alpha.vercel.app/historicalArtifacts?email=${user.email}`, { withCredentials: true })
+        // axios.get(`http://localhost:5000/historicalArtifacts?email=${user.email}`, { withCredentials: true })
         //     .then(res => setArtifacts(res.data))
 
-        axiosSecure.get(`/historicalArtifacts?email=${user.email}`)
+        // axiosSecure.get(`/historicalArtifacts?email=${user.email}`)
+        axiosSecure.get(`/myHistoricalArtifacts/${user?.email}`)
             .then(res => setArtifacts(res.data))
     }, [axiosSecure, user.email])
     return (
@@ -33,7 +55,7 @@ const MyArtifacts = () => {
                             <th>Artifact Name</th>
                             <th>Discovered At, By</th>
                             <th>Created At</th>
-                            <th></th>
+                            <th>Actions</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -66,7 +88,7 @@ const MyArtifacts = () => {
                                 <th>
                                     <button className="btn btn-ghost btn-xs">E</button>
                                 </th>
-                                <th><button className="btn btn-ghost btn-xs">X</button></th>
+                                <th><button onClick={() => handleDelete(artifact._id)} className="btn btn-ghost btn-xs">X</button></th>
                             </tr>)
                         }
                     </tbody>

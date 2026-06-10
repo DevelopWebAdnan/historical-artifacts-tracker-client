@@ -7,7 +7,7 @@ const FeaturedArtifacts = () => {
     const [artifacts, setArtifacts] = useState([]);
 
     useEffect(() => {
-        fetch("https://historical-artifacts-tracker-server-alpha.vercel.app/historicalArtifacts")
+        fetch("http://localhost:5000/historicalArtifacts")
             .then(res => res.json())
             .then(data => {
                 setArtifacts(data)

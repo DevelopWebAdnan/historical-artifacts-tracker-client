@@ -17,7 +17,7 @@ const AddArtifacts = () => {
         newArtifact.like_count = 0;
         console.log(newArtifact);
 
-        // fetch('https://historical-artifacts-tracker-server-alpha.vercel.app/historicalArtifacts', {
+        // fetch('http://localhost:5000/historicalArtifacts', {
         //     method: 'POST',
         //     headers: {
         //         'content-type': 'application/json'
@@ -27,7 +27,7 @@ const AddArtifacts = () => {
         //     .then(res => res.json())
         //     .then(data => {
 
-        // axios.post('https://historical-artifacts-tracker-server-alpha.vercel.app/historicalArtifacts', newArtifact, { withCredentials: true })
+        // axios.post('http://localhost:5000/historicalArtifacts', newArtifact, { withCredentials: true })
 
         axiosSecure.post('/historicalArtifacts', newArtifact)
             .then(res => {
