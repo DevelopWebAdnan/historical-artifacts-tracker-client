@@ -1,25 +1,47 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import { Link, useNavigate } from "react-router-dom";
 
 const MyArtifacts = () => {
     const { user } = useAuth();
     const [artifacts, setArtifacts] = useState([]);
     const axiosSecure = useAxiosSecure();
+    const navigate = useNavigate();
 
     const handleDelete = id => {
         console.log('delete it', id);
-        fetch(`http://localhost:5000/myHistoricalArtifacts/${user?.email}`, {
-            method: 'DELETE',
-            // headers: {
-            //     'content-type': 'application/json'
-            // },
-            // body: JSON.stringify()
-        })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
-        })
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed)
+
+                // fetch(`http://localhost:5000/historicalArtifact/${id}`, {
+                //     method: 'DELETE',
+                // })
+                axiosSecure.delete(`http://localhost:5000/historicalArtifact/${id}`)
+                    // .then(res => res.json())
+                    .then(res => {
+                        console.log(res.data);
+                        if (res.data.deletedCount > 0) {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your historical artifact has been deleted.",
+                                icon: "success"
+                            });
+                            const remaining = artifacts.filter(artifact => artifact._id !== id)
+                            setArtifacts(remaining);
+                            navigate("/allArtifacts");
+                        }
+                    })
+        });
     }
 
     // const data = useLoaderData();
@@ -86,9 +108,11 @@ const MyArtifacts = () => {
                                 </td>
                                 <td>{artifact.created_at}</td>
                                 <th>
-                                    <button className="btn btn-ghost btn-xs">E</button>
+                                    <Link to={`/updateArtifact/${artifact._id}`}>
+                                        <button className="btn btn-ghost btn-xs">E</button>
+                                    </Link>
                                 </th>
-                                <th><button onClick={() => handleDelete(artifact._id)} className="btn btn-ghost btn-xs">X</button></th>
+                                <th><button onClick={() => handleDelete(artifact._id)} className="btn btn-ghost btn-xs bg-orange-500">X</button></th>
                             </tr>)
                         }
                     </tbody>

@@ -10,6 +10,8 @@ import MyArtifacts from "../pages/MyArtifacts/MyArtifacts";
 import LikedArtifacts from "../pages/LikedArtifacts/LikedArtifacts";
 import axios from "axios";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import UpdateArtifact from "../pages/UpdateArtifact/UpdateArtifact";
+import AllArtifacts from "../pages/AllArtifacts/AllArtifacts";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +33,10 @@ const router = createBrowserRouter([
         // })
       },
       {
+        path: "/allArtifacts",
+        element: <AllArtifacts></AllArtifacts>
+      },
+      {
         path: "/addArtifact",
         element: <PrivateRoute><AddArtifacts></AddArtifacts></PrivateRoute>
       },
@@ -38,6 +44,11 @@ const router = createBrowserRouter([
         path: "/myArtifacts/:email",
         element: <PrivateRoute><MyArtifacts></MyArtifacts></PrivateRoute>,
         // loader: ({params}) => fetch(`http://localhost:5000/myHistoricalArtifacts/${params.email}`)
+      },
+      {
+        path: "updateArtifact/:id",
+        element: <PrivateRoute><UpdateArtifact></UpdateArtifact></PrivateRoute>,
+        loader: ({ params }) => axios.get(`http://localhost:5000/historicalArtifacts/${params.id}`, { withCredentials: true })
       },
       {
         path: "/likedArtifacts",

@@ -16,7 +16,7 @@ const FeaturedArtifactCard = ({ artifact }) => {
             <div className="card-body">
                 <h2 className="card-title">{artifact_name}</h2>
                 <div className="badge badge-secondary">{like_count}</div>
-                <p>{historical_context}</p>
+                <p>{historical_context.substring(0, 70)}...</p>
                 <div className="card-actions justify-end">
                     <Link to={`/historicalArtifacts/${_id}`}>
                         <button className="btn btn-primary">View Details</button>
