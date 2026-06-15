@@ -1,46 +1,88 @@
 import { useLoaderData } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import { useState } from "react";
+import { IoHeartDislikeOutline } from "react-icons/io5";
 
 const ArtifactDetails = () => {
-    const { data } = useLoaderData();
-    // console.log(data);
-    const { _id, artifact_name, like_count, artifact_image, artifact_type, historical_context, created_at, discovered_at, discovered_by, present_location } = data;
+    const loadedArtifact = useLoaderData();
+    // const [artifact, setArtifact] = useState(loadedArtifact.data);
+    // console.log(loadedArtifact, artifact);
+    const { _id, artifact_name, like_count, artifact_image, artifact_type, historical_context, created_at, discovered_at, discovered_by, present_location } = loadedArtifact.data;
 
     const { user } = useAuth();
 
-    const handleLike = () => {
+    const [like, setLike] = useState(true);
+
+    const handleLike = (like) => {
+        console.log('Like status:', like);
         const artifact_id = _id;
-        // console.log('Clicked on the Like button of the artifact with id: ', artifact_id, 'by:', user);
+        if (like === true) {
 
-        const newLikedArtifact = {
-            artifact_id,
-            liked_by: user?.email
+            console.log('Clicked on the Like button of the artifact with id: ', artifact_id, 'by:', user);
+
+            const newLikedArtifact = {
+                artifact_id,
+                liked_by: user?.email
+            }
+
+            // fetch('http://localhost:5000/liked-historical-artifacts/?like=true', {
+            fetch('http://localhost:5000/liked-historical-artifacts', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(newLikedArtifact)
+            })
+                .then(res => res.json())
+                .then(data => {
+
+                    // axios.post('http://localhost:5000/liked-historical-artifacts', newLikedArtifact, { withCredentials: true })
+                    //     .then(res => {
+                    if (data.insertedId) {
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: "You like this artifact",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        // setArtifact(data);
+                    }
+                    // })
+                })
         }
+        else {
+            console.log('Like status: ', like);
+            console.log('Clicked on the Dislike button of the artifact with id: ', artifact_id, 'by:', user);
 
-        fetch('http://localhost:5000/liked-historical-artifacts', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(newLikedArtifact)
-        })
-            .then(res => res.json())
-            .then(data => {
+            // const dislikedArtifact = {
+            //     artifact_id,
+            //     disliked_by: user?.email
+            // }
 
-        // axios.post('http://localhost:5000/liked-historical-artifacts', newLikedArtifact, { withCredentials: true })
-        //     .then(res => {
-                if (data.insertedId) {
-                    Swal.fire({
-                        position: "top-end",
-                        icon: "success",
-                        title: "You like this artifact",
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                }
-            // })
-        })
+            fetch(`http://localhost:5000/liked-historical-artifacts/${artifact_id}`, {
+                method: 'PATCH',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                // body: JSON.stringify(newLikedArtifact)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.modifiedCount > 0) {
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: "You dislike this artifact",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                })
+        }
+        setLike(!like);
     }
 
     return (
@@ -87,10 +129,15 @@ const ArtifactDetails = () => {
                             <p>Present Location: {present_location}</p>
                             <div className="card-actions justify-end">
                                 {/* <button className="btn btn-primary">Like</button> */}
-                                <button onClick={handleLike} className="btn">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="size-[1.2em]"><path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" /></svg>
-                                    Like
-                                </button>
+                                <div onClick={() => handleLike(like)} className="btn btn-square">
+                                    {
+                                        like === true ? <>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="size-[1.2em]"><path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" /></svg>
+                                        </> : <>
+                                            <IoHeartDislikeOutline></IoHeartDislikeOutline>
+                                        </>
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>
